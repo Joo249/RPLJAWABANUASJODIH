@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+form label {
+    margin-bottom: 5px;
+}
+
+textarea {
+    height: 100px;
+}
+
+#daftarBarang {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.barang {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
