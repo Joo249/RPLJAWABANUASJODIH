@@ -1,40 +1,94 @@
-document.getElementById('barangForm').addEventListener('submit', function(e) {
+var daftarBarang = [];
+
+document.getElementById('inputForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    // Get input values
     var namaBarang = document.getElementById('namaBarang').value;
-    var deskripsiBarang = document.getElementById('deskripsiBarang').value;
-    var jumlahBarang = parseInt(document.getElementById('jumlahBarang').value);
-    var kategoriBarang = document.getElementById('kategoriBarang').value;
-    
-    // Create barang element
-    var barangElement = document.createElement('div');
-    barangElement.classList.add('barang');
-    barangElement.innerHTML = `
-        <h2>${namaBarang}</h2>
-        <p>Deskripsi: ${deskripsiBarang}</p>
-        <p>Jumlah: ${jumlahBarang}</p>
-        <p>Kategori: ${kategoriBarang}</p>
-        <button class="editButton">Edit</button>
-        <button class="deleteButton">Hapus</button>
-    `;
+    var jumlah = parseInt(document.getElementById('jumlah').value);
 
-    // Append barang element to the daftar barang
-    var daftarBarang = document.getElementById('daftarBarang');
-    daftarBarang.appendChild(barangElement);
+    if (namaBarang && !isNaN(jumlah)) {
+        var barang = { namaBarang: namaBarang, jumlah: jumlah };
+        daftarBarang.push(barang);
+        showDaftarBarang();
 
-    // Reset form fields
-    document.getElementById('namaBarang').value = '';
-    document.getElementById('deskripsiBarang').value = '';
-    document.getElementById('jumlahBarang').value = '';
-    document.getElementById('kategoriBarang').value = '';
-});
-
-document.getElementById('daftarBarang').addEventListener('click', function(e) {
-    if (e.target.classList.contains('editButton')) {
-        // TODO: Implement edit functionality
-        alert('Fitur edit belum diimplementasikan.');
-    } else if (e.target.classList.contains('deleteButton')) {
-        e.target.parentNode.remove();
+        document.getElementById('namaBarang').value = '';
+        document.getElementById('jumlah').value = '';
+    } else {
+        alert('Nama barang dan jumlah harus diisi dengan benar.');
     }
 });
+
+function showDaftarBarang() {
+    var daftarBarangElement = document.getElementById('daftarBarang');
+    daftarBarangElement.innerHTML = '';
+
+    daftarBarang.forEach(function(barang, index) {
+        var barangElement = document.createElement('li');
+        barangElement.innerHTML = `
+            <span>${barang.namaBarang} - Jumlah: ${barang.jumlah}</span>
+            <button class="editButton" data-index="${index}">Edit</button>
+            <button class="deleteButton" data-index="${index}">Hapus</button>
+        `;
+
+        barangElement.querySelector('.editButton').addEventListener('click', function() {
+            editBarang(index);
+        });
+
+        barangElement.querySelector('.deleteButton').addEventListener('click', function() {
+            deleteBarang(index);
+        });
+
+        daftarBarangElement.appendChild(barangElement);
+    });
+}
+
+function editBarang(index) {
+    var barang = daftarBarang[index];
+
+    document.getElementById('namaBarang').value = barang.namaBarang;
+    document.getElementById('jumlah').value = barang.jumlah;
+
+    document.getElementById('editButton').style.display = 'inline-block';
+    document.getElementById('cancelButton').style.display = 'inline-block';
+
+    document.getElementById('inputForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var namaBarang = document.getElementById('namaBarang').value;
+        var jumlah = parseInt(document.getElementById('jumlah').value);
+
+        if (namaBarang && !isNaN(jumlah)) {
+            daftarBarang[index].namaBarang = namaBarang;
+            daftarBarang[index].jumlah = jumlah;
+            showDaftarBarang();
+
+            document.getElementById('namaBarang').value = '';
+            document.getElementById('jumlah').value = '';
+            document.getElementById('editButton').style.display = 'none';
+            document.getElementById('cancelButton').style.display = 'none';
+        } else {
+            alert('Nama barang dan jumlah harus diisi dengan benar.');
+        }
+    });
+}
+
+function deleteBarang(index) {
+    daftarBarang.splice(index, 1);
+    showDaftarBarang();
+}
+
+document.getElementById('editButton').addEventListener('click', function() {
+    document.getElementById('namaBarang').value = '';
+    document.getElementById('jumlah').value = '';
+    document.getElementById('editButton').style.display = 'none';
+    document.getElementById('cancelButton').style.display = 'none';
+});
+
+document.getElementById('cancelButton').addEventListener('click', function() {
+    document.getElementById('namaBarang').value = '';
+    document.getElementById('jumlah').value = '';
+    document.getElementById('editButton').style.display = 'none';
+    document.getElementById('cancelButton').style.display = 'none';
+});
+
+showDaftarBarang();
