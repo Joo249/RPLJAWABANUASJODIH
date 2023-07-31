@@ -50,20 +50,18 @@
 
     <div class="container">
          <link rel="stylesheet" type="text/css" href="style2.css">
-        <form id="barangForm">
+       <form id="inputForm">
             <label for="namaBarang">Nama Barang:</label>
             <input type="text" id="namaBarang" name="namaBarang"><br>
-            <label for="deskripsiBarang">Deskripsi Barang:</label>
-            <textarea id="deskripsiBarang" name="deskripsiBarang"></textarea><br>
-            <label for="jumlahBarang">Jumlah Barang:</label>
-            <input type="number" id="jumlahBarang" name="jumlahBarang"><br>
-            <label for="kategoriBarang">Kategori Barang:</label>
-            <input type="text" id="kategoriBarang" name="kategoriBarang"><br>
-            <input type="submit" value="Tambah Barang">
+            <label for="jumlah">Jumlah:</label>
+            <input type="number" id="jumlah" name="jumlah"><br>
+            <input type="submit" value="Tambah">
+            <input type="button" id="editButton" value="Edit" style="display: none;">
+            <input type="button" id="cancelButton" value="Batal" style="display: none;">
         </form>
-        <div id="daftarBarang">
+        <ul id="daftarBarang">
             <!-- Daftar barang akan ditampilkan di sini -->
-        </div>
+        </ul>
     </div>
     <script src="script.js"></script>
             <footer>
